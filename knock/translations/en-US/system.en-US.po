@@ -1,0 +1,11 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"PO-Revision-Date: 2024-05-29 19:05:41.863445Z"
+"Language: en-US"
+"Content-Type: text/plain; charset=UTF-8"
+"Content-Transfer-Encoding: 8bit"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
+
+msgid "How does Knock translate?"
+msgstr "How does Knock translate?"

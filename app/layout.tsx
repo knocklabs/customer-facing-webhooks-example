@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "highlight.js/styles/default.css";
+import NavBar from "@/components/NavBar";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <NavBar></NavBar>
+        <div className="flex min-h-screen w-full flex-col">{children}</div>
+        <Toaster />
+      </body>
     </html>
   );
 }
