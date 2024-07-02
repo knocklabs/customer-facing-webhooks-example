@@ -21,7 +21,7 @@ From here, you'll need to provide values for the following environment variables
 
 ## Modeling webhook connections with objects in Knock
 
-In this section, we will explore how to model webhook connections using objects in Knock. In Knock, you can think of [Objects](https://docs.knock.app/concepts/objects) as a NoSQL for non-user entities. In other words, you can create JSON-shaped entities inside of collections that map to parts of your application's data model.
+In this section, we will explore how to model webhook connections using objects in Knock. In Knock, you can think of [Objects](https://docs.knock.app/concepts/objects) as a NoSQL data store for non-user entities. In other words, you can create JSON-shaped entities inside of collections that map to parts of your application's data model.
 
 In this app, we create an entity inside of the `webhooks` collection to store information about the webhook connection. Each `object` can have custom properties like a `url` or an array of `events` the webhook is subscribed to.
 
@@ -44,9 +44,38 @@ In this application, the `SetEndpointForm` component calls a server action that 
 
 You can also use [objects to power subscriptions](https://docs.knock.app/concepts/objects#object-subscribers), which is a powerful pattern that simplifies triggering workflows.
 
-## Triggering Test Events in Next.js with Knock Workflows
+## Triggering test events in Next.js with Knock workflows
 
-In this section, we will learn how to trigger test events in Next.js by utilizing Knock workflows. Knock provides a seamless integration with Next.js, allowing us to simulate webhook events and test our application's behavior.
+In this section, we will learn how to trigger test events from Next.js by utilizing Knock workflows. Knock workflows are triggered using an API request or SDK method that contain a `recipient` that will receive the notification, payload `data` that can be used in the message template, as well as other optional properties like `tenant.`
+
+The `TestEventForm` component calls a server action that triggers your workflow using the following code:
+
+```javascript
+  const knock = new Knock(process.env.KNOCK_API_KEY);
+  const workflow_run_id = await knock.workflows.trigger(
+    process.env.KNOCK_WEBHOOK_WORKFLOW_KEY as string,
+    {
+      recipients: [
+        {
+          id: values.webhookId,
+          collection: process.env.KNOCK_WEBHOOK_COLLECTION as string,
+        },
+      ],
+      data: {
+        eventType: values.eventType,
+        payload: {
+          message: "This is a test message",
+          timestamp: new Date().toISOString(),
+        },
+      },
+      tenant: process.env.KNOCK_TENANT_ID as string,
+    }
+  );
+```
+
+First, we use the `KNOCK_WEBHOOK_WORKFLOW_KEY` environment variable to make sure we're triggering the correct workflow. Then, we provide the `id` and `collection` of the selected webhook connection as an entry in the `recipients` array. The `data` key is a JSON object that contains the custom payload for our webhooks, which contains an `eventType` that will be matched against allowed `events` on our webhook connection object and a `payload` object.
+
+In this example, we also pass in a `tenant` to make it easier to query for webhook messages that belong to a particular organizations.
 
 ## Examining Webhook Requests and Responses with Message Delivery Logs
 

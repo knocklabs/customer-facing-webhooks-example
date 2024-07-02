@@ -30,7 +30,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import testWebhookEvent from "../app/actions/test-webhook-event";
 import { ToastAction } from "./ui/toast";
-import { revalidatePath } from "next/cache";
 
 export const formSchema = z.object({
   webhookId: z.string().min(2, {}),
