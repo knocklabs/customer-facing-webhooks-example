@@ -40,7 +40,6 @@ export default async function LogDetails({
   console.log(params.logId);
   const knock = new Knock(process.env.KNOCK_API_KEY);
   let message = null;
-  let content = null;
   let deliveryLogs = null;
   async function getMessageDeliveryLogs(id: string) {
     const results = await fetch(
@@ -54,10 +53,9 @@ export default async function LogDetails({
   try {
     const results = await Promise.all([
       knock.messages.get(params.logId),
-      knock.messages.getContent(params.logId),
       getMessageDeliveryLogs(params.logId),
     ]);
-    [message, content, deliveryLogs] = results;
+    [message, deliveryLogs] = results;
     console.log(results);
   } catch (e) {
     console.log(e);
