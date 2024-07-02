@@ -28,6 +28,7 @@ import { revalidatePath } from "next/cache";
 export const dynamic = "force-dynamic";
 interface Log {
   id: string;
+  inserted_at: string;
   response: Record<string, any>;
   request: Record<string, any>;
 }
@@ -125,7 +126,7 @@ export default async function LogDetails({
                         <TableCell>{`${item.request.host}${item.request.path}`}</TableCell>
                         <TableCell>
                           {new Date(
-                            message?.inserted_at as string
+                            item?.inserted_at as string
                           ).toLocaleString()}
                         </TableCell>
                         <TableCell>

@@ -167,9 +167,9 @@ export function SetEndpointForm({
           render={() => (
             <FormItem>
               <div className="mb-4">
-                <FormLabel className="text-base">Sidebar</FormLabel>
+                <FormLabel className="text-base">Event subscriptions</FormLabel>
                 <FormDescription>
-                  Select the items you want to display in the sidebar.
+                  Select the events you want send to your endpoint.
                 </FormDescription>
               </div>
               {webhookEvents.map((item) => (
