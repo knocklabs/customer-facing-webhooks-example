@@ -26,9 +26,9 @@ export default async function Logs() {
   let messageLogs = null;
   try {
     messageLogs = await knock.messages.list({
-      tenant: "knock-projects",
-      source: "webhook-event-stream",
-      channel_id: "18a67b74-b037-4cdf-94b7-1b307adccc89",
+      tenant: process.env.KNOCK_TENANT_ID as string,
+      source: process.env.KNOCK_WEBHOOK_WORKFLOW_KEY as string,
+      channel_id: process.env.KNOCK_WEBHOOK_CHANNEL_ID as string,
     });
     console.log(messageLogs);
   } catch (e) {
