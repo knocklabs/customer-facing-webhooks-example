@@ -1,4 +1,4 @@
-# Building customer-facing webhooks with Knock
+# Designing customer-facing webhooks with Knock
 
 This example app builds on [this guide](https://docs.knock.app/guides/customer-webhooks) from the official docs. It provides you an easy way to implement the steps outlined there and demonstrates how to create a debugging logs for developers using Knock's APIs. The app itself is built using Next.js and shadcn/ui.
 
@@ -21,7 +21,28 @@ From here, you'll need to provide values for the following environment variables
 
 ## Modeling webhook connections with objects in Knock
 
-In this section, we will explore how to model webhook connections using objects in Knock. By leveraging the power of objects, we can easily manage and organize our webhook connections, making our code more maintainable and scalable.
+In this section, we will explore how to model webhook connections using objects in Knock. In Knock, you can think of [Objects](https://docs.knock.app/concepts/objects) as a NoSQL for non-user entities. In other words, you can create JSON-shaped entities inside of collections that map to parts of your application's data model.
+
+In this app, we create an entity inside of the `webhooks` collection to store information about the webhook connection. Each `object` can have custom properties like a `url` or an array of `events` the webhook is subscribed to.
+
+In this application, the `SetEndpointForm` component calls a server action that runs the following code to create or update our webhook endpoint entity:
+
+```javascript
+  const knock = new Knock(process.env.KNOCK_API_KEY);
+  await knock.objects.set(
+    process.env.KNOCK_WEBHOOK_COLLECTION as string,
+    slugify(values.id),
+    {
+      name: values.id,
+      description: values.description,
+      url: values.endpointURL,
+      signingKey: values.signingKey,
+      events: values.events,
+    }
+  );
+```
+
+You can also use [objects to power subscriptions](https://docs.knock.app/concepts/objects#object-subscribers), which is a powerful pattern that simplifies triggering workflows.
 
 ## Triggering Test Events in Next.js with Knock Workflows
 
