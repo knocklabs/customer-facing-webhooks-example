@@ -23,14 +23,13 @@ import { Knock } from "@knocklabs/node";
 export const dynamic = "force-dynamic";
 export default async function Logs() {
   const knock = new Knock(process.env.KNOCK_API_KEY);
-  let messageLogs = null;
+  let messages = null;
   try {
-    messageLogs = await knock.messages.list({
+    messages = await knock.messages.list({
       tenant: process.env.KNOCK_TENANT_ID as string,
       source: process.env.KNOCK_WEBHOOK_WORKFLOW_KEY as string,
       channel_id: process.env.KNOCK_WEBHOOK_CHANNEL_ID as string,
     });
-    console.log(messageLogs);
   } catch (e) {
     console.log(e);
   }
@@ -65,8 +64,8 @@ export default async function Logs() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {messageLogs?.items && messageLogs.items.length > 0 ? (
-                  messageLogs.items.map((item) => {
+                {messages?.items && messages.items.length > 0 ? (
+                  messages.items.map((item) => {
                     return (
                       <TableRow key={item.id}>
                         <TableCell>

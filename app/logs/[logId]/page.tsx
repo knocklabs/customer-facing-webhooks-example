@@ -37,7 +37,6 @@ export default async function LogDetails({
 }: {
   params: { logId: string };
 }) {
-  console.log(params.logId);
   const knock = new Knock(process.env.KNOCK_API_KEY);
   let message = null;
   let deliveryLogs = null;
@@ -56,12 +55,9 @@ export default async function LogDetails({
       getMessageDeliveryLogs(params.logId),
     ]);
     [message, deliveryLogs] = results;
-    console.log(results);
   } catch (e) {
     console.log(e);
   }
-
-  console.log(deliveryLogs.items[0]);
 
   return (
     <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
