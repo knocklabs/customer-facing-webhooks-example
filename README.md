@@ -6,10 +6,11 @@ This example app builds on [this guide](https://docs.knock.app/guides/customer-w
 
 ## Getting started
 
-To get started, you can clone this repository with the following command:
+To get started, you can clone this repository with the following command and then install the depdencies:
 
 ```bash
 git clone https://github.com/knocklabs/customer-facing-webhooks-example.git
+npm install
 ```
 
 Next, you'll want to create a new copy of the `.env.sample` file to use in your project:
